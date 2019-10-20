@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/lczapparolli/registro-ponto-api/issues"
   },
-  "homepage": "https://github.com/lczapparolli/registro-ponto-api#readme"
+  "homepage": "https://github.com/lczapparolli/registro-ponto-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
