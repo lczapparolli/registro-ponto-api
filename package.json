@@ -1,0 +1,22 @@
+{
+  "name": "registro-ponto-api",
+  "version": "1.0.0",
+  "description": "Record worked hours",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lczapparolli/registro-ponto-api.git"
+  },
+  "keywords": [
+    "work"
+  ],
+  "author": "lczapparolli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lczapparolli/registro-ponto-api/issues"
+  },
+  "homepage": "https://github.com/lczapparolli/registro-ponto-api#readme"
+}
