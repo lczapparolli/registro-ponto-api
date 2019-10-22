@@ -10,7 +10,7 @@ const mongoDatabase = Symbol('mongoDatabase');
 
 class db {
     constructor() {
-        MongoClient.connect(url, (err, client) => {
+        MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
             if (err) {
                 throw err;
             } else {
@@ -21,7 +21,7 @@ class db {
 
     //Properties
     get database() {
-        return this[mongoDatabase];
+        //return this[mongoDatabase];
     }
 }
 

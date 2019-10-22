@@ -9,5 +9,6 @@ describe('App server', () => {
             .get('/');
         expect(res.statusCode).toEqual(200);
         expect(res.text).toEqual('It is alive!');
+        app.close();
     });
 });

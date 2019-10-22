@@ -5,6 +5,4 @@ app.get('/', (req, res) => {
     res.status(200).send('It is alive!');
 });
 
-app.listen(3000);
-
-module.exports = app;
+module.exports = app.listen(3000);
