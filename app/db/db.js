@@ -1,20 +1,17 @@
 //Libs
 const MongoClient = require('mongodb').MongoClient;
-
-//Constants
-const url = 'mongodb://localhost:27017';
-const dbName = 'registro-ponto';
+const config = require('../config');
 
 //Symbols
 const mongoDatabase = Symbol('mongoDatabase');
 
 class db {
   constructor() {
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(config.db.url, { useUnifiedTopology: true }, (err, client) => {
       if (err) {
         throw err;
       } else {
-        this[mongoDatabase] = client.db(dbName);
+        this[mongoDatabase] = client.db(config.db.database);
       }
     });
   }
