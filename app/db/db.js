@@ -3,22 +3,48 @@ const MongoClient = require('mongodb').MongoClient;
 const config = require('../config');
 
 //Symbols
-const mongoDatabase = Symbol('mongoDatabase');
+const _mongoDatabase = Symbol('mongoDatabase');
+const _validateCollection = Symbol('validateCollection');
+const _validateModel = Symbol('validateModel');
 
 class db {
   constructor() {
-    MongoClient.connect(config.db.url, { useUnifiedTopology: true }, (err, client) => {
-      if (err) {
-        throw err;
-      } else {
-        this[mongoDatabase] = client.db(config.db.database);
-      }
-    });
+    this[_mongoDatabase] = null;
   }
 
   //Properties
   get database() {
-    return this[mongoDatabase];
+    return this[_mongoDatabase];
+  }
+
+  //Methods
+  async init() {
+    if (!this[_mongoDatabase]) {
+      const client = await MongoClient.connect(config.db.url, {
+        useUnifiedTopology: true
+      });
+      this[_mongoDatabase] = client.db(config.db.database);
+    }
+  }
+
+  async save(collection, model) {
+    this[_validateCollection](collection);
+    this[_validateModel](model);
+    this.init();
+    const result = await this[_mongoDatabase]
+      .collection(collection)
+      .insertOne(model);
+    if (result.insertedCount === 1) return result.insertedId;
+    else throw new Error('Error saving object');
+  }
+
+  //Private methods
+  [_validateCollection](collection) {
+    if (!collection) throw new TypeError('Collection cannot be null');
+  }
+
+  [_validateModel](model) {
+    if (!model) throw new TypeError('Model cannot be null');
   }
 }
 
