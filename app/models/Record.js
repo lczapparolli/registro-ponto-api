@@ -1,6 +1,13 @@
+//Libs
+const db = require('../db/db');
+
+//Symbols
 const _id = Symbol('id');
 const _personId = Symbol('personId');
 const _time = Symbol('time');
+
+//Collection name
+const COLLECTION_NAME = 'records';
 
 class Record {
   //Constructor
@@ -40,7 +47,8 @@ class Record {
 
   //Methods
   async save() {
-    throw new Error('Not implemented');
+    const id = await db.save(COLLECTION_NAME, this);
+    this[_id] = id;
   }
 }
 

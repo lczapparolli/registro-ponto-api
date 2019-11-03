@@ -42,6 +42,7 @@ describe('Record module', () => {
       //Creating model
       const model = new Record('identification');
       expect(model.save).toBeDefined();
+      //Inserting model into database
       await model.save();
       expect(model.id).toBeDefined();
       expect(model.id).not.toBeNull();

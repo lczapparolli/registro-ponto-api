@@ -30,7 +30,7 @@ class db {
   async save(collection, model) {
     this[_validateCollection](collection);
     this[_validateModel](model);
-    this.init();
+    await this.init();
     const result = await this[_mongoDatabase]
       .collection(collection)
       .insertOne(model);
