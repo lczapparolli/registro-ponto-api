@@ -44,5 +44,17 @@ describe('DB module', () => {
       expect(list.length).toBe(1);
       expect(list[0].param1).toBe(model.param1);
     });
+
+    it('should not override object when it already has an id', async () => {
+      //Test parameters
+      const collection = 'test';
+      const model = { param1: 'value 1', param2: 'value 2' };
+      //Insert model
+      const id = await db.save(collection, model);
+      //Updates the model
+      model.id = id;
+      const newId = await db.save(collection, model);
+      expect(newId).toBe(id);
+    });
   });
 });

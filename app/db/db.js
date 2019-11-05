@@ -31,11 +31,27 @@ class db {
     this[_validateCollection](collection);
     this[_validateModel](model);
     await this.init();
+    if (model.id) {
+      return this.update(collection, model);
+    } else {
+      return this.insert(collection, model);
+    }
+  }
+
+  async insert(collection, model) {
     const result = await this[_mongoDatabase]
       .collection(collection)
       .insertOne(model);
     if (result.insertedCount === 1) return result.insertedId;
-    else throw new Error('Error saving object');
+    else throw new Error('Error inserting object');
+  }
+
+  async update(collection, model) {
+    const result = await this[_mongoDatabase]
+      .collection(collection)
+      .replaceOne({ _id: model.id }, model);
+    if (result.modifiedCount == 1) return model.id;
+    else throw new Error('Error updating object');
   }
 
   //Private methods
