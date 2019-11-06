@@ -47,11 +47,10 @@ class db {
   }
 
   async update(collection, model) {
-    const result = await this[_mongoDatabase]
+    await this[_mongoDatabase]
       .collection(collection)
       .replaceOne({ _id: model.id }, model);
-    if (result.modifiedCount == 1) return model.id;
-    else throw new Error('Error updating object');
+    return model.id;
   }
 
   //Private methods
