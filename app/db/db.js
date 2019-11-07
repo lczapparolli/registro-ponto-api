@@ -38,6 +38,15 @@ class db {
     }
   }
 
+  async findAll(collection) {
+    this[_validateCollection](collection);
+    await this.init();
+    return this[_mongoDatabase]
+      .collection(collection)
+      .find()
+      .toArray();
+  }
+
   async insert(collection, model) {
     const result = await this[_mongoDatabase]
       .collection(collection)
